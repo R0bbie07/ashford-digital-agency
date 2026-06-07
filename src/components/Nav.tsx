@@ -37,8 +37,8 @@ export default function Nav() {
           <img
             src={logo}
             alt="Ashford Digital"
-            className="h-9 w-auto"
-            style={{ height: 36 }}
+            className="w-auto"
+            style={{ height: 52 }}
           />
         </Link>
 

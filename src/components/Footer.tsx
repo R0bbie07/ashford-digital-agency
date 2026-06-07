@@ -14,7 +14,7 @@ export default function Footer() {
               src={logo}
               alt="Ashford Digital"
               className="w-auto"
-              style={{ height: 32 }}
+              style={{ height: 44 }}
             />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-mist">

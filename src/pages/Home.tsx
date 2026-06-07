@@ -285,6 +285,12 @@ export default function Home() {
                     <span className="mb-1.5 text-mist">{plan.cadence}</span>
                   </div>
 
+                  <div className="mt-5">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-[#ffd97a] px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-ink shadow-[0_8px_24px_-8px_rgba(245,196,81,0.85)] ring-2 ring-gold/40">
+                      <Star width={13} height={13} /> First 30 days free
+                    </span>
+                  </div>
+
                   <ul className="mt-7 flex-1 space-y-3">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-3 text-sm">

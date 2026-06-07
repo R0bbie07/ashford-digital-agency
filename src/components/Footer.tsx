@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Bolt, Mail } from "./Icons";
+import { Mail } from "./Icons";
 import { SITE } from "../lib/site";
+import logo from "../assets/ashford-logo-dark.png";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -8,11 +9,13 @@ export default function Footer() {
     <footer className="border-t border-line bg-ink-2/60">
       <div className="container-cs grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Link to="/" className="flex items-center gap-2 font-semibold">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand to-brand-2 text-white">
-              <Bolt width={18} height={18} />
-            </span>
-            Ashford <span className="text-mist">Digital</span>
+          <Link to="/" className="inline-flex items-center" aria-label="Ashford Digital — home">
+            <img
+              src={logo}
+              alt="Ashford Digital"
+              className="w-auto"
+              style={{ height: 32 }}
+            />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-mist">
             Professional websites and local SEO for UK trades — electricians,

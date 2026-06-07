@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bolt } from "./Icons";
+import logo from "../assets/ashford-logo-dark.png";
 
 const links = [
   { label: "Services", to: "/#services" },
@@ -33,13 +33,13 @@ export default function Nav() {
       }`}
     >
       <nav className="container-cs flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand to-brand-2 text-white shadow-lg">
-            <Bolt width={18} height={18} />
-          </span>
-          <span className="text-[1.05rem]">
-            Ashford <span className="text-mist">Digital</span>
-          </span>
+        <Link to="/" className="flex items-center" aria-label="Ashford Digital — home">
+          <img
+            src={logo}
+            alt="Ashford Digital"
+            className="h-9 w-auto"
+            style={{ height: 36 }}
+          />
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">

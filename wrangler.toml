@@ -1,0 +1,29 @@
+name = "ashford-digital"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+# ---------------------------------------------------------------------------
+# Environment variables / secrets
+# ---------------------------------------------------------------------------
+# DO NOT put secrets (RESEND_API_KEY) in this file. Set them either with:
+#   wrangler pages secret put RESEND_API_KEY
+# or in the Cloudflare dashboard → Pages → your project → Settings → Variables.
+#
+# Plain (non-secret) build-time variables can live in [vars]:
+[vars]
+AGENCY_EMAIL = "ashforddigital10@gmail.com"
+FROM_EMAIL = "Ashford Digital <onboarding@ashforddigital.co.uk>"
+# STRIPE_STANDARD_LINK and STRIPE_PRO_LINK are read by the /api/onboard
+# function. Set them as variables in the dashboard (or below) once you've
+# created the Stripe payment links.
+# STRIPE_STANDARD_LINK = "https://buy.stripe.com/your_standard_link"
+# STRIPE_PRO_LINK = "https://buy.stripe.com/your_pro_link"
+
+# ---------------------------------------------------------------------------
+# KV namespace for JSON backups of onboarding submissions (optional).
+# ---------------------------------------------------------------------------
+# Create one with:  wrangler kv namespace create ONBOARDING_KV
+# then paste the returned id below and uncomment.
+# [[kv_namespaces]]
+# binding = "ONBOARDING_KV"
+# id = "paste-the-namespace-id-here"

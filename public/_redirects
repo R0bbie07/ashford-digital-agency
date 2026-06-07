@@ -1,0 +1,4 @@
+# SPA fallback for client-side routing (React Router).
+# Pages Functions under /api/* are matched before this rule, so the
+# onboarding endpoint keeps working.
+/*    /index.html   200

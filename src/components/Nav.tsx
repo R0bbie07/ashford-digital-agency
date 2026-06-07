@@ -38,7 +38,7 @@ export default function Nav() {
             src={logo}
             alt="Ashford Digital"
             className="w-auto"
-            style={{ height: 52 }}
+            style={{ height: 160, maxHeight: "none" }}
           />
         </Link>
 

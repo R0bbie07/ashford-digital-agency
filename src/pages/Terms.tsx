@@ -278,7 +278,7 @@ export default function Terms() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-2">
+          <p className="text-sm font-semibold uppercase tracking-widest text-accent">
             Legal
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
@@ -294,13 +294,13 @@ export default function Terms() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-10 rounded-2xl border border-line bg-panel/40 p-6"
+          className="mt-10 rounded-2xl border border-line bg-white elev-sm p-6"
         >
           <h2 className="text-sm font-semibold text-cloud">Contents</h2>
           <ol className="mt-3 grid gap-x-6 gap-y-1.5 text-sm text-mist sm:grid-cols-2">
             {clauses.map((c) => (
               <li key={c.id}>
-                <a href={`#${c.id}`} className="hover:text-brand-2">
+                <a href={`#${c.id}`} className="hover:text-accent">
                   {c.title}
                 </a>
               </li>
@@ -320,7 +320,7 @@ export default function Terms() {
               transition={{ duration: 0.45, delay: Math.min(i, 4) * 0.03 }}
             >
               <h2 className="text-xl font-semibold text-cloud">{c.title}</h2>
-              <div className="mt-3 space-y-3 text-[0.95rem] leading-relaxed text-mist [&_a]:text-brand-2 [&_li]:ml-1 [&_strong]:text-cloud [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
+              <div className="mt-3 space-y-3 text-[0.95rem] leading-relaxed text-mist [&_a]:text-accent [&_li]:ml-1 [&_strong]:text-cloud [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
                 {c.body}
               </div>
             </motion.section>

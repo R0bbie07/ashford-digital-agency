@@ -95,6 +95,15 @@ export default function Home() {
       {/* HERO                                                              */}
       {/* ----------------------------------------------------------------- */}
       <section className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+        {/* soft warm wash behind the hero */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px]"
+          style={{
+            background:
+              "radial-gradient(720px 420px at 50% -8%, rgba(245,158,11,0.12), transparent 70%), linear-gradient(180deg, #fbfcfe, #ffffff)",
+          }}
+          aria-hidden
+        />
         <div className="container-cs">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -102,22 +111,21 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto max-w-3xl text-center"
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-panel/60 px-4 py-1.5 text-xs font-medium text-mist">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-              For UK electricians, plumbers, gas engineers & builders
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-mist shadow-sm">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
+              For UK electricians, plumbers, gas engineers &amp; builders
             </span>
 
-            <h1 className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
-              Websites that{" "}
-              <span className="text-gradient">win you work</span> — not just sit
-              there.
+            <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl">
+              Websites that <span className="text-gradient">win you work</span> —
+              not just sit there.
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-mist sm:text-lg">
               {SITE.name} builds fast, professional websites for trades
               businesses. Hosting, domain and ongoing updates all included — from{" "}
-              <span className="font-semibold text-cloud">£80/month</span>. No
-              big upfront cost.
+              <span className="font-semibold text-cloud">£80/month</span>. No big
+              upfront cost.
             </p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -131,51 +139,51 @@ export default function Home() {
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-mist">
               <span className="inline-flex items-center gap-2">
-                <Check width={16} height={16} className="text-accent" /> Live in
-                24 hours
+                <Check width={16} height={16} className="text-brand" /> Live in 24
+                hours
               </span>
               <span className="inline-flex items-center gap-2">
-                <Check width={16} height={16} className="text-accent" /> Cancel
+                <Check width={16} height={16} className="text-brand" /> Cancel
                 anytime (30 days’ notice)
               </span>
               <span className="inline-flex items-center gap-2">
-                <Check width={16} height={16} className="text-accent" /> You own
+                <Check width={16} height={16} className="text-brand" /> You own
                 your domain
               </span>
             </div>
           </motion.div>
 
-          {/* Mock browser preview built from pure CSS — no images */}
+          {/* Light browser preview built from pure CSS — no images */}
           <Reveal delay={0.15} className="mx-auto mt-16 max-w-4xl">
-            <div className="glass rounded-3xl p-2 shadow-2xl">
-              <div className="rounded-[1.25rem] bg-ink-2 ring-1 ring-line">
+            <div className="rounded-3xl border border-line bg-white p-2 elev-md">
+              <div className="rounded-[1.25rem] border border-line bg-ink-2">
                 <div className="flex items-center gap-2 border-b border-line px-4 py-3">
                   <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
                   <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
                   <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-                  <span className="ml-3 flex-1 truncate rounded-md bg-panel px-3 py-1 text-xs text-mist">
+                  <span className="ml-3 flex-1 truncate rounded-md border border-line bg-white px-3 py-1 text-xs text-mist">
                     rj-electrical.co.uk
                   </span>
                 </div>
                 <div className="grid gap-4 p-6 sm:grid-cols-[1.3fr_1fr]">
                   <div>
-                    <div className="h-3 w-24 rounded-full bg-brand/60" />
-                    <div className="mt-4 h-7 w-3/4 rounded-lg bg-cloud/80" />
-                    <div className="mt-2 h-7 w-1/2 rounded-lg bg-cloud/40" />
+                    <div className="h-3 w-24 rounded-full bg-brand/70" />
+                    <div className="mt-4 h-7 w-3/4 rounded-lg bg-cloud/85" />
+                    <div className="mt-2 h-7 w-1/2 rounded-lg bg-cloud/35" />
                     <div className="mt-5 space-y-2">
                       <div className="h-2.5 w-full rounded-full bg-line" />
                       <div className="h-2.5 w-5/6 rounded-full bg-line" />
                     </div>
                     <div className="mt-6 flex gap-3">
                       <div className="h-9 w-28 rounded-full bg-gradient-to-r from-brand to-brand-2" />
-                      <div className="h-9 w-24 rounded-full border border-line" />
+                      <div className="h-9 w-24 rounded-full border border-line bg-white" />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[Globe, Shield, Gauge, Pin].map((Ic, i) => (
                       <div
                         key={i}
-                        className="grid place-items-center rounded-xl border border-line bg-panel/60 py-6 text-brand-2"
+                        className="grid place-items-center rounded-xl border border-line bg-panel-2 py-6 text-brand"
                       >
                         <Ic width={26} height={26} />
                       </div>
@@ -194,10 +202,10 @@ export default function Home() {
       <section id="services" className="scroll-mt-24 py-20 sm:py-28">
         <div className="container-cs">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-brand-2">
+            <p className="text-sm font-bold uppercase tracking-widest text-accent">
               What you get
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
               Everything handled, for one monthly fee
             </h2>
             <p className="mt-4 text-mist">
@@ -209,14 +217,12 @@ export default function Home() {
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.05}>
-                <article className="group h-full rounded-2xl border border-line bg-panel/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:bg-panel/70">
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand/20 to-accent/20 text-brand-2 ring-1 ring-line transition-colors group-hover:text-accent">
+                <article className="group h-full rounded-2xl border border-line bg-white p-6 elev-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-xl">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15 transition-colors">
                     <s.icon width={24} height={24} />
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-mist">
-                    {s.text}
-                  </p>
+                  <h3 className="mt-5 text-lg font-bold">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mist">{s.text}</p>
                 </article>
               </Reveal>
             ))}
@@ -227,14 +233,16 @@ export default function Home() {
       {/* ----------------------------------------------------------------- */}
       {/* HOW IT WORKS                                                      */}
       {/* ----------------------------------------------------------------- */}
-      <section className="py-12 sm:py-16">
+      <section className="border-y border-line bg-ink-2 py-16 sm:py-20">
         <div className="container-cs">
           <div className="grid gap-5 md:grid-cols-3">
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.08}>
-                <div className="relative h-full rounded-2xl border border-line bg-ink-2/60 p-6">
-                  <span className="text-4xl font-bold text-gradient">{s.n}</span>
-                  <h3 className="mt-3 text-lg font-semibold">{s.title}</h3>
+                <div className="relative h-full rounded-2xl border border-line bg-white p-6 elev-sm">
+                  <span className="text-4xl font-extrabold text-gradient">
+                    {s.n}
+                  </span>
+                  <h3 className="mt-3 text-lg font-bold">{s.title}</h3>
                   <p className="mt-2 text-sm text-mist">{s.text}</p>
                 </div>
               </Reveal>
@@ -249,10 +257,10 @@ export default function Home() {
       <section id="pricing" className="scroll-mt-24 py-20 sm:py-28">
         <div className="container-cs">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-brand-2">
+            <p className="text-sm font-bold uppercase tracking-widest text-accent">
               Simple pricing
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
               One flat monthly fee. No surprises.
             </h2>
             <p className="mt-4 text-mist">
@@ -267,26 +275,26 @@ export default function Home() {
                 <div
                   className={`relative flex h-full flex-col rounded-3xl border p-8 ${
                     plan.highlighted
-                      ? "border-brand/60 bg-gradient-to-b from-panel-2 to-panel shadow-[0_30px_80px_-40px_rgba(109,92,255,0.6)]"
-                      : "border-line bg-panel/40"
+                      ? "border-brand bg-white elev-md ring-1 ring-brand/30"
+                      : "border-line bg-white elev-sm"
                   }`}
                 >
                   {plan.highlighted && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-brand to-brand-2 px-4 py-1 text-xs font-semibold text-white">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-brand to-brand-2 px-4 py-1 text-xs font-bold text-[#2a1a00] shadow-sm">
                       Most popular
                     </span>
                   )}
-                  <h3 className="text-xl font-semibold">{plan.id}</h3>
+                  <h3 className="text-xl font-bold">{plan.id}</h3>
                   <p className="mt-1 text-sm text-mist">{plan.blurb}</p>
                   <div className="mt-6 flex items-end gap-1">
-                    <span className="text-5xl font-bold tracking-tight">
+                    <span className="text-5xl font-extrabold tracking-tight">
                       £{plan.price}
                     </span>
                     <span className="mb-1.5 text-mist">{plan.cadence}</span>
                   </div>
 
                   <div className="mt-5">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-[#ffd97a] px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-ink shadow-[0_8px_24px_-8px_rgba(245,196,81,0.85)] ring-2 ring-gold/40">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-2 px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-[#2a1a00] shadow-[0_8px_24px_-10px_rgba(245,158,11,0.7)] ring-1 ring-brand/40">
                       <Star width={13} height={13} /> First 30 days free
                     </span>
                   </div>
@@ -294,7 +302,7 @@ export default function Home() {
                   <ul className="mt-7 flex-1 space-y-3">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-3 text-sm">
-                        <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand/20 text-brand-2">
+                        <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand/15 text-brand">
                           <Check width={13} height={13} />
                         </span>
                         <span className="text-cloud/90">{f}</span>
@@ -321,7 +329,7 @@ export default function Home() {
       {/* ----------------------------------------------------------------- */}
       {/* SOCIAL PROOF                                                      */}
       {/* ----------------------------------------------------------------- */}
-      <section id="proof" className="scroll-mt-24 py-20 sm:py-28">
+      <section id="proof" className="scroll-mt-24 border-t border-line bg-ink-2 py-20 sm:py-28">
         <div className="container-cs">
           <Reveal className="mx-auto max-w-2xl text-center">
             <div className="mb-3 flex items-center justify-center gap-1 text-gold">
@@ -329,7 +337,7 @@ export default function Home() {
                 <Star key={i} width={20} height={20} />
               ))}
             </div>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
               Trusted by trades who’d rather be on the tools
             </h2>
             <p className="mt-4 text-mist">
@@ -340,19 +348,17 @@ export default function Home() {
           <div className="mt-14 grid gap-5 md:grid-cols-3">
             {proof.map((p, i) => (
               <Reveal key={p.name} delay={i * 0.06}>
-                <figure className="flex h-full flex-col rounded-2xl border border-line bg-panel/40 p-6">
-                  <Quote width={28} height={28} className="text-brand/50" />
+                <figure className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 elev-sm">
+                  <Quote width={28} height={28} className="text-brand/60" />
                   <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-cloud/90">
                     “{p.quote}”
                   </blockquote>
                   <figcaption className="mt-6 flex items-center gap-3">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-brand to-brand-2 text-sm font-semibold text-white">
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-brand to-brand-2 text-sm font-bold text-[#2a1a00]">
                       {p.name.charAt(0)}
                     </span>
                     <span>
-                      <span className="block text-sm font-semibold">
-                        {p.name}
-                      </span>
+                      <span className="block text-sm font-semibold">{p.name}</span>
                       <span className="block text-xs text-mist">{p.role}</span>
                     </span>
                   </figcaption>
@@ -362,14 +368,14 @@ export default function Home() {
           </div>
 
           <Reveal delay={0.1}>
-            <div className="mt-12 grid gap-4 rounded-3xl border border-line bg-ink-2/60 p-8 sm:grid-cols-3">
+            <div className="mt-12 grid gap-4 rounded-3xl border border-line bg-white p-8 elev-sm sm:grid-cols-3">
               {[
                 { stat: "24 hrs", label: "Average go-live time" },
                 { stat: "< 1 sec", label: "Mobile load speed" },
                 { stat: "£0", label: "Upfront cost" },
               ].map((m) => (
                 <div key={m.label} className="text-center">
-                  <p className="text-4xl font-bold text-gradient">{m.stat}</p>
+                  <p className="text-4xl font-extrabold text-gradient">{m.stat}</p>
                   <p className="mt-1 text-sm text-mist">{m.label}</p>
                 </div>
               ))}
@@ -381,22 +387,22 @@ export default function Home() {
       {/* ----------------------------------------------------------------- */}
       {/* CTA                                                               */}
       {/* ----------------------------------------------------------------- */}
-      <section className="pb-24">
+      <section className="py-20 sm:py-24">
         <div className="container-cs">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[2rem] border border-line bg-gradient-to-br from-panel-2 via-panel to-ink-2 px-6 py-14 text-center sm:px-12 sm:py-20">
-              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/20 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+            <div className="relative overflow-hidden rounded-[2rem] bg-navy px-6 py-14 text-center text-white sm:px-12 sm:py-20">
+              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/25 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand/15 blur-3xl" />
               <div className="relative">
-                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-white">
+                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-[#2a1a00]">
                   <Rocket width={26} height={26} />
                 </div>
-                <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+                <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
                   Ready to look like the professional you are?
                 </h2>
-                <p className="mx-auto mt-4 max-w-xl text-mist">
-                  Get a website your customers trust — live within 24 hours.
-                  Takes 5 minutes to get started.
+                <p className="mx-auto mt-4 max-w-xl text-[#aebbd0]">
+                  Get a website your customers trust — live within 24 hours. Takes
+                  5 minutes to get started.
                 </p>
                 <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <Link to="/onboarding" className="btn-primary w-full sm:w-auto">
@@ -404,7 +410,7 @@ export default function Home() {
                   </Link>
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="btn-ghost w-full sm:w-auto"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-[0.85rem] border border-white/25 px-6 py-3.5 font-bold text-white transition-colors hover:bg-white/10 sm:w-auto"
                   >
                     Ask a question
                   </a>

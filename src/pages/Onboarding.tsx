@@ -204,9 +204,9 @@ export default function Onboarding() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="rounded-3xl border border-line bg-panel/40 p-8 text-center sm:p-12"
+            className="rounded-3xl border border-line bg-white elev-sm p-8 text-center sm:p-12"
           >
-            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-white">
+            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-[#2a1a00]">
               <Check width={30} height={30} />
             </div>
             <h1 className="mt-6 text-3xl font-bold tracking-tight">
@@ -230,7 +230,7 @@ export default function Onboarding() {
                   "Your professional site goes live within 24 hours of payment.",
                 ].map((t, i) => (
                   <li key={i} className="flex gap-3 text-sm text-mist">
-                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/20 text-xs font-semibold text-brand-2">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/20 text-xs font-semibold text-accent">
                       {i + 1}
                     </span>
                     <span>{t}</span>
@@ -286,7 +286,7 @@ export default function Onboarding() {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-white">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-[#2a1a00]">
             <Rocket width={26} height={26} />
           </div>
           <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -307,7 +307,7 @@ export default function Onboarding() {
           noValidate
         >
           {/* Plan selector */}
-          <fieldset className="rounded-2xl border border-line bg-panel/40 p-6">
+          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Your plan
             </legend>
@@ -334,7 +334,7 @@ export default function Onboarding() {
                     </div>
                     <p className="mt-1 text-xs text-mist">{p.blurb}</p>
                     {active && (
-                      <span className="mt-2 inline-flex items-center gap-1 text-xs text-brand-2">
+                      <span className="mt-2 inline-flex items-center gap-1 text-xs text-accent">
                         <Check width={13} height={13} /> Selected
                       </span>
                     )}
@@ -345,7 +345,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* Your details */}
-          <fieldset className="rounded-2xl border border-line bg-panel/40 p-6">
+          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Your details
             </legend>
@@ -443,7 +443,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* Domain */}
-          <fieldset className="rounded-2xl border border-line bg-panel/40 p-6">
+          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Domain
             </legend>
@@ -531,7 +531,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* Branding */}
-          <fieldset className="rounded-2xl border border-line bg-panel/40 p-6">
+          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Branding
             </legend>
@@ -587,7 +587,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* About + services */}
-          <fieldset className="rounded-2xl border border-line bg-panel/40 p-6">
+          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               About your business
             </legend>
@@ -660,7 +660,7 @@ export default function Onboarding() {
             </button>
             <p className="text-center text-xs text-mist">
               By submitting you agree to our{" "}
-              <a href="/terms" className="text-brand-2 hover:underline">
+              <a href="/terms" className="text-accent hover:underline">
                 Terms &amp; Conditions
               </a>
               . You’ll pay your first month securely via Stripe before we build.

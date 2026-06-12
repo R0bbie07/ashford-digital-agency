@@ -26,7 +26,6 @@ function ScrollManager() {
 export default function App() {
   return (
     <>
-      <div className="bg-aurora" aria-hidden />
       <ScrollManager />
       <Nav />
       <main>

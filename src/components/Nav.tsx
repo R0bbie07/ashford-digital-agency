@@ -32,13 +32,14 @@ export default function Nav() {
         scrolled ? "glass shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]" : ""
       }`}
     >
-      <nav className="container-cs flex h-16 items-center justify-between">
+      <nav className="container-cs flex h-20 items-center justify-between">
         <Link to="/" className="flex items-center" aria-label="Ashford Digital — home">
+          {/* White logo recoloured to black for the light nav (no grey box) */}
           <img
             src={logo}
             alt="Ashford Digital"
             className="w-auto"
-            style={{ height: 160, maxHeight: "none" }}
+            style={{ height: 88, maxHeight: "none", filter: "brightness(0)" }}
           />
         </Link>
 

@@ -6,264 +6,196 @@ interface Clause {
   body: React.ReactNode;
 }
 
-const lastUpdated = "6 June 2026";
+const lastUpdated = "June 2026";
 
 const clauses: Clause[] = [
   {
-    id: "about",
-    title: "1. About these Terms",
-    body: (
-      <>
-        <p>
-          These Terms and Conditions (“<strong>Terms</strong>”) govern the
-          supply of website design, hosting and related services by Ashford
-          Digital (“<strong>we</strong>”, “<strong>us</strong>”, “
-          <strong>our</strong>”) to you, the client (“<strong>you</strong>”,
-          “<strong>your</strong>”). By placing an order, completing our
-          onboarding form, or making your first monthly payment, you agree to be
-          bound by these Terms.
-        </p>
-        <p>
-          Ashford Digital is operated by <strong>Robbie Owen</strong> as a
-          sole trader, of <strong>DN21 5JJ</strong>. You can contact us at{" "}
-          <strong>ashforddigital10@gmail.com</strong>.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "sole-trader",
-    title: "2. Sole Trader Declaration",
+    id: "services",
+    title: "1. Services",
     body: (
       <p>
-        Ashford Digital is a trading name used by <strong>Robbie Owen</strong>{" "}
-        operating as a <strong>sole trader</strong>. Ashford Digital is{" "}
-        <strong>not</strong> a limited company and is not registered at Companies
-        House. All obligations, rights and liabilities under these Terms are
-        those of the sole trader, subject to the limitations set out below.
+        Ashford Digital provides website design, development, and hosting services
+        for trade businesses in the United Kingdom. The specific services provided
+        are outlined in the plan selected by the client at the point of purchase
+        (<strong>Standard</strong> or <strong>Pro</strong>).
       </p>
-    ),
-  },
-  {
-    id: "services",
-    title: "3. Our Services & Plans",
-    body: (
-      <>
-        <p>We offer two monthly subscription plans:</p>
-        <ul>
-          <li>
-            <strong>Standard — £80 per month:</strong> a professional website,
-            hosting on Cloudflare Pages, domain management (DNS configuration and
-            maintenance), and ongoing updates to your website content as
-            reasonably requested.
-          </li>
-          <li>
-            <strong>Pro — £120 per month:</strong> everything in the Standard
-            plan, plus initial Google Business Profile set-up and local SEO
-            foundations (meta titles, meta descriptions, and a consistent Name,
-            Address and Phone number across your website and Google Business
-            Profile).
-          </li>
-        </ul>
-        <p>
-          Work outside the scope described above (for example e-commerce systems,
-          bespoke web applications, professional copywriting, photography, or
-          paid advertising management) is not included and may be quoted
-          separately by written agreement.
-        </p>
-      </>
     ),
   },
   {
     id: "payment",
-    title: "4. Payment Terms",
-    body: (
-      <>
-        <p>
-          Fees are <strong>£80 per month</strong> (Standard) or{" "}
-          <strong>£120 per month</strong> (Pro), depending on the plan you
-          select. All fees are payable monthly in advance.
-        </p>
-        <p>
-          Payment is collected by recurring card payment via{" "}
-          <strong>Stripe</strong>. Your payment is due on the{" "}
-          <strong>same date each month</strong> as your first payment (for
-          example, if your first payment is taken on the 12th, future payments
-          will be due on the 12th of each month). Work on a new website will not
-          begin until your first monthly payment has been received.
-        </p>
-        <p>
-          You are responsible for keeping your payment details up to date. All
-          prices are in pounds sterling (GBP).
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "late",
-    title: "5. Late Payment",
+    title: "2. Payment Terms",
     body: (
       <p>
-        If any sum due under these Terms is not paid on its due date, we reserve
-        the right to charge statutory interest on the overdue amount at a rate of{" "}
-        <strong>8% per annum above the Bank of England base rate</strong>, in
-        accordance with the Late Payment of Commercial Debts (Interest) Act 1998,
-        calculated daily from the due date until payment is received in full.
-        Where payment remains overdue, we may suspend our services (including, where
-        applicable, temporarily taking your website offline) until all
-        outstanding sums are paid. Suspension does not relieve you of the
-        obligation to pay accrued fees.
+        Services are billed on a monthly recurring basis. The{" "}
+        <strong>first 30 days are provided free of charge</strong> as a trial
+        period. Following the trial, payments are collected automatically on the
+        same date each month via <strong>Stripe</strong>. All prices are inclusive
+        of any applicable taxes unless stated otherwise.
       </p>
     ),
   },
   {
-    id: "no-guarantee",
-    title: "6. No Guarantee of Results",
+    id: "minimum-commitment",
+    title: "3. Minimum Commitment",
     body: (
       <p>
-        We perform all services with reasonable care and skill. However, we give{" "}
-        <strong>no guarantee or warranty</strong> as to any particular result,
-        including but not limited to the number of enquiries, telephone calls,
-        leads, sales, or your position in Google or other search engine rankings.
-        Search engine results, Google Business Profile visibility and customer
-        behaviour are controlled by third parties and are outside our control.
+        Following the conclusion of the 30 day free trial, clients are committed to
+        a <strong>minimum of 2 monthly payments</strong> before cancellation is
+        permitted. This applies to both Standard (<strong>£80/month</strong>) and
+        Pro (<strong>£120/month</strong>) plans. Cancellation requests submitted
+        before the minimum term is fulfilled will not be accepted.
       </p>
-    ),
-  },
-  {
-    id: "liability",
-    title: "7. Limitation of Liability",
-    body: (
-      <>
-        <p>
-          To the fullest extent permitted by law, our total aggregate liability
-          to you arising out of or in connection with these Terms — whether in
-          contract, tort (including negligence), breach of statutory duty or
-          otherwise — shall be <strong>limited to a sum equal to one (1) month
-          of the fees you have paid</strong> under these Terms.
-        </p>
-        <p>
-          We shall not be liable for any indirect, special or consequential loss,
-          nor for loss of profit, loss of business, loss of goodwill or loss of
-          data. Nothing in these Terms excludes or limits our liability for death
-          or personal injury caused by our negligence, for fraud or fraudulent
-          misrepresentation, or for any other liability that cannot lawfully be
-          excluded or limited.
-        </p>
-      </>
     ),
   },
   {
     id: "cancellation",
-    title: "8. Cancellation",
+    title: "4. Cancellation Policy",
     body: (
       <p>
-        Either party may cancel the subscription by giving the other{" "}
-        <strong>30 days’ written notice</strong> (email is sufficient). Fees
-        remain payable throughout the notice period. No refund is given for the
-        month in progress at the point notice is given. On cancellation, your
-        rights in the website are determined by clause 9 below.
+        After the minimum 2 month commitment has been fulfilled, clients may cancel
+        at any time by submitting a written cancellation request to{" "}
+        <strong>ashforddigital@gmail.com</strong> with a minimum of{" "}
+        <strong>30 days notice</strong>. Access to the website and hosting will
+        remain active until the end of the final paid billing period.
+      </p>
+    ),
+  },
+  {
+    id: "referral",
+    title: "5. Referral Scheme",
+    body: (
+      <p>
+        Clients who successfully refer another paying client to Ashford Digital
+        will receive <strong>1 month free</strong> added to their account. The
+        referred client must complete their 30 day trial and make their first
+        payment for the referral reward to be applied. Referral rewards are
+        non-transferable and have no cash value.
       </p>
     ),
   },
   {
     id: "ip",
-    title: "9. Intellectual Property & Website Ownership",
-    body: (
-      <>
-        <p>
-          All intellectual property rights in the website we create for you
-          (including design files, code and layouts created by us) remain our
-          property until you have paid for{" "}
-          <strong>six (6) consecutive months</strong> of the subscription.
-        </p>
-        <p>
-          Upon completion of six consecutive months of paid subscription,
-          ownership of the completed website and its custom design assets
-          transfers to you. If the subscription is cancelled before six
-          consecutive monthly payments have been made, intellectual property in
-          the website remains with us, and you have no right to retain, copy or
-          re-host it. Third-party components and licensed assets remain subject to
-          their own licence terms.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "domain",
-    title: "10. Domain Ownership",
+    title: "6. Ownership & Intellectual Property",
     body: (
       <p>
-        You own your domain name <strong>at all times</strong>. Where we register
-        or manage a domain on your behalf, we do so as your agent. We manage DNS
-        configuration only and claim no ownership of your domain. On request, we
-        will provide the information needed to transfer your domain to you or to
-        another registrar.
-      </p>
-    ),
-  },
-  {
-    id: "google-business",
-    title: "11. Google Business Profile (Pro Plan)",
-    body: (
-      <p>
-        Where you are on the Pro plan, we will carry out the{" "}
-        <strong>initial set-up only</strong> of your Google Business Profile and
-        local SEO foundations. Ongoing management of your Google Business Profile
-        (including responding to reviews, posting updates, or making frequent
-        changes) is <strong>not included</strong> and may be arranged separately
-        by written agreement.
+        The website designed and developed by Ashford Digital{" "}
+        <strong>remains the intellectual property of Ashford Digital</strong> until
+        all outstanding payments have been made. Upon cancellation and settlement
+        of any outstanding balance, the client is entitled to request a static
+        export of their website. Ongoing hosting, updates, and support are only
+        provided to active paying clients.
       </p>
     ),
   },
   {
     id: "responsibilities",
-    title: "12. Your Responsibilities",
+    title: "7. Client Responsibilities",
     body: (
       <p>
-        You agree to provide accurate business information, content, imagery and
-        timely responses needed for us to perform the services. You warrant that
-        any materials you supply to us do not infringe the rights of any third
-        party, and you agree to indemnify us against any claim arising from
-        materials you provide.
+        The client is responsible for providing accurate business information,
+        logos, images, and any other content required to build and maintain their
+        website. Ashford Digital is not liable for delays caused by the client
+        failing to provide required materials.
       </p>
     ),
   },
   {
-    id: "data",
-    title: "13. Data Protection",
+    id: "revisions",
+    title: "8. Revisions & Updates",
     body: (
       <p>
-        We process personal data in accordance with the UK General Data
-        Protection Regulation (UK GDPR) and the Data Protection Act 2018. We use
-        the information you provide solely to deliver and support our services. We
-        do not sell your data. Payment card details are handled securely by Stripe
-        and are not stored by us.
+        Standard plan clients are entitled to{" "}
+        <strong>up to 2 revision requests per month</strong>. Pro plan clients are
+        entitled to <strong>unlimited revision requests</strong>. Revision requests
+        must be submitted via email to <strong>ashforddigital@gmail.com</strong> and
+        will be completed within <strong>5 working days</strong>.
+      </p>
+    ),
+  },
+  {
+    id: "liability",
+    title: "9. Limitation of Liability",
+    body: (
+      <p>
+        Ashford Digital will not be held liable for any loss of business, revenue,
+        or data arising from website downtime, technical issues, or errors beyond
+        our reasonable control. Our total liability in any circumstance is{" "}
+        <strong>limited to the value of the most recent monthly payment</strong>{" "}
+        made by the client.
       </p>
     ),
   },
   {
     id: "law",
-    title: "14. Governing Law & Jurisdiction",
+    title: "10. Governing Law",
     body: (
       <p>
-        These Terms and any dispute or claim arising out of or in connection with
-        them shall be governed by and construed in accordance with the law of{" "}
-        <strong>England and Wales</strong>. The parties submit to the exclusive
-        jurisdiction of the courts of England and Wales.
+        These terms are governed by the laws of{" "}
+        <strong>England and Wales</strong>. Any disputes arising from these terms
+        shall be subject to the exclusive jurisdiction of the courts of England and
+        Wales.
       </p>
     ),
   },
   {
-    id: "general",
-    title: "15. General",
+    id: "changes",
+    title: "11. Changes to Terms",
     body: (
       <p>
-        These Terms constitute the entire agreement between us and supersede any
-        prior arrangements. Any variation must be agreed in writing. If any
-        provision is found to be unenforceable, the remaining provisions continue
-        in full force. Our failure to enforce any right is not a waiver of that
-        right.
+        Ashford Digital reserves the right to update these terms at any time.
+        Clients will be notified of material changes via email with a minimum of{" "}
+        <strong>14 days notice</strong> before changes take effect.
+      </p>
+    ),
+  },
+  {
+    id: "acceptable-use",
+    title: "12. Acceptable Use",
+    body: (
+      <p>
+        The client agrees not to use their Ashford Digital website to promote
+        illegal services, publish defamatory content, infringe third party
+        intellectual property, or engage in any activity that violates UK law.
+        Ashford Digital reserves the right to{" "}
+        <strong>suspend or terminate services immediately and without refund</strong>{" "}
+        if this clause is breached.
+      </p>
+    ),
+  },
+  {
+    id: "force-majeure",
+    title: "13. Force Majeure",
+    body: (
+      <p>
+        Ashford Digital shall not be liable for any failure or delay in performing
+        services caused by circumstances beyond our reasonable control, including
+        but not limited to internet outages, third party platform failures
+        (including <strong>Cloudflare, Stripe, or Resend</strong>), extreme weather,
+        or illness.
+      </p>
+    ),
+  },
+  {
+    id: "no-guarantee",
+    title: "14. No Guarantee of Results",
+    body: (
+      <p>
+        Ashford Digital makes <strong>no guarantee</strong> of specific business
+        outcomes, search engine rankings, lead generation, or revenue as a result
+        of the website provided. Website performance depends on factors outside our
+        control including market conditions and client business operations.
+      </p>
+    ),
+  },
+  {
+    id: "severability",
+    title: "15. Severability",
+    body: (
+      <p>
+        If any clause within these terms is found to be unenforceable or invalid
+        under applicable law, that clause shall be modified to the minimum extent
+        necessary to make it enforceable. The remaining clauses shall continue in
+        full force and effect.
       </p>
     ),
   },
@@ -285,7 +217,8 @@ export default function Terms() {
             Terms &amp; Conditions
           </h1>
           <p className="mt-3 text-sm text-mist">
-            Ashford Digital · Sole trader · Last updated {lastUpdated}
+            Ashford Digital · Sole trader, operated by R. Owen · Gainsborough,
+            Lincolnshire · Last updated {lastUpdated}
           </p>
         </motion.header>
 
@@ -330,8 +263,8 @@ export default function Terms() {
         <div className="mt-14 rounded-2xl border border-line bg-ink-2/60 p-6 text-sm text-mist">
           <p>
             Questions about these Terms? Email{" "}
-            <strong className="text-cloud">ashforddigital10@gmail.com</strong> and we’ll be
-            happy to help before you sign up.
+            <strong className="text-cloud">ashforddigital@gmail.com</strong> and
+            we’ll be happy to help before you sign up.
           </p>
         </div>
       </div>

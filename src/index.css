@@ -1,38 +1,49 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------------
+   Ashford Digital design system
+   Dark "night ink" surfaces, warm cream text, one brass-amber accent.
+   All text colours below pass WCAG AA (4.5:1) on every surface.
+   ------------------------------------------------------------------------ */
 @theme {
-  /* Light, trustworthy surface system */
-  --color-ink: #ffffff; /* page background */
-  --color-ink-2: #f3f6fb; /* soft grey sections / insets */
-  --color-panel: #ffffff; /* card surface */
-  --color-panel-2: #f8fafd; /* faint tinted surface */
-  --color-line: #e5eaf2; /* hairline borders */
-  --color-mist: #58677f; /* muted slate text */
-  --color-cloud: #0f1b2d; /* deep navy — headings / primary text */
+  /* Surfaces */
+  --color-ink: #0b0e13; /* page background */
+  --color-ink-2: #0f131a; /* alternate section band */
+  --color-panel: #141922; /* card surface */
+  --color-panel-2: #1a202b; /* raised / hover surface */
+  --color-line: #252c38; /* hairline borders */
+  --color-line-2: #343c4b; /* stronger borders, inputs */
 
-  /* Warm amber accent + navy anchor */
-  --color-brand: #f59e0b; /* amber (fills / CTAs) */
-  --color-brand-2: #fbbf24; /* amber light (gradient stop) */
-  --color-accent: #b45309; /* deep amber — legible accent text on white */
-  --color-gold: #f59e0b;
-  --color-navy: #0e1726; /* dark anchor (footer) */
+  /* Text */
+  --color-cloud: #f4f1ea; /* primary text (warm cream) — 17:1 on ink */
+  --color-mist: #a7aebb; /* secondary text — 8.6:1 on ink, 7.4:1 on panel */
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  /* Accent */
+  --color-brand: #f5b53d; /* brass amber — buttons, highlights */
+  --color-brand-2: #ffcb66; /* hover */
+  --color-on-brand: #1a1203; /* text on amber — 10:1 */
+  --color-accent: #f5b53d; /* accent text on dark — 10:1 */
+  --color-good: #6ee7a0;
+  --color-bad: #ff8a8a;
+  --color-navy: #07090d; /* footer */
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
-  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui,
-    sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Inter Variable", ui-sans-serif,
+    system-ui, sans-serif;
 
   --radius-xl2: 1.5rem;
 }
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
   }
 
   body {
@@ -40,6 +51,8 @@
     background-color: var(--color-ink);
     color: var(--color-cloud);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
@@ -48,31 +61,34 @@
   h1,
   h2,
   h3,
-  h4,
-  h5 {
+  h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a,
+  button,
+  summary,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  /* One clear focus ring everywhere, keyboard only */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 40%, transparent);
     color: var(--color-cloud);
-  }
-
-  /* Subtle custom scrollbar (desktop) */
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--color-ink-2);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #cdd6e3;
-    border-radius: 999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #b6c1d2;
   }
 }
 
@@ -84,78 +100,115 @@
     padding-inline: 1.25rem;
   }
 
-  /* Frosted light bar for the nav on scroll */
-  .glass {
-    background: color-mix(in oklab, #ffffff 80%, transparent);
-    border-bottom: 1px solid var(--color-line);
-    backdrop-filter: blur(14px);
+  .section {
+    padding-block: clamp(4rem, 9vw, 7rem);
   }
 
-  /* Soft card elevation for the light theme */
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .h-section {
+    font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3rem);
+    font-weight: 800;
+  }
+
+  .lead {
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+    color: var(--color-mist);
+    line-height: 1.6;
+  }
+
+  .glass {
+    background: color-mix(in oklab, var(--color-ink) 82%, transparent);
+    border-bottom: 1px solid var(--color-line);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .card {
+    border-radius: 1.25rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-panel);
+  }
+
+  .card-hover {
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .card-hover:hover {
+    border-color: var(--color-line-2);
+    background: var(--color-panel-2);
+  }
+
+  /* Kept for older markup */
   .elev-sm {
-    box-shadow: 0 1px 2px rgba(15, 27, 45, 0.05),
-      0 10px 24px -16px rgba(15, 27, 45, 0.22);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 20px 40px -28px rgba(0, 0, 0, 0.8);
   }
   .elev-md {
-    box-shadow: 0 2px 6px rgba(15, 27, 45, 0.06),
-      0 28px 56px -28px rgba(15, 27, 45, 0.3);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 30px 60px -30px rgba(0, 0, 0, 0.9);
   }
 
   .text-gradient {
-    background: linear-gradient(
-      100deg,
-      var(--color-brand) 0%,
-      #d97706 55%,
-      #b45309 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--color-brand);
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border-radius: 0.85rem;
-    padding: 0.85rem 1.6rem;
-    font-weight: 700;
-    color: #2a1a00;
-    background: linear-gradient(120deg, var(--color-brand), var(--color-brand-2));
-    box-shadow: 0 10px 26px -10px color-mix(in oklab, var(--color-brand) 65%, transparent);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.04);
-    box-shadow: 0 16px 36px -12px color-mix(in oklab, var(--color-brand) 75%, transparent);
-  }
-
+  .btn-primary,
   .btn-ghost {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    min-height: 3rem;
     border-radius: 0.85rem;
-    padding: 0.85rem 1.6rem;
+    padding: 0.8rem 1.4rem;
     font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-align: center;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease,
+      transform 0.18s ease;
+  }
+  .btn-primary {
+    color: var(--color-on-brand);
+    background: var(--color-brand);
+    box-shadow: 0 10px 30px -12px color-mix(in oklab, var(--color-brand) 70%, transparent);
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-2);
+  }
+  .btn-primary:active,
+  .btn-ghost:active {
+    transform: translateY(1px);
+  }
+  .btn-ghost {
     color: var(--color-cloud);
-    border: 1px solid #d7deea;
-    background: #ffffff;
-    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease,
-      box-shadow 0.18s ease;
+    border: 1px solid var(--color-line-2);
+    background: transparent;
   }
   .btn-ghost:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-brand);
-    background: #fffaf0;
-    box-shadow: 0 10px 24px -16px rgba(15, 27, 45, 0.2);
+    border-color: var(--color-mist);
+    background: var(--color-panel);
+  }
+
+  .tick {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-top: 0.15rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-brand) 16%, transparent);
+    color: var(--color-brand);
   }
 
   .field-label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-cloud);
     margin-bottom: 0.4rem;
@@ -165,35 +218,78 @@
   .field-select,
   .field-textarea {
     width: 100%;
-    border-radius: 0.85rem;
-    background: #ffffff;
-    border: 1px solid #d7deea;
+    min-height: 3rem;
+    border-radius: 0.8rem;
+    background: var(--color-ink);
+    border: 1px solid var(--color-line-2);
     color: var(--color-cloud);
     padding: 0.75rem 0.9rem;
-    font-size: 0.95rem;
+    font-size: 1rem; /* 16px stops iOS zooming in */
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
   .field-input::placeholder,
   .field-textarea::placeholder {
-    color: #93a0b5;
+    color: #7d8595;
   }
   .field-input:focus,
   .field-select:focus,
   .field-textarea:focus {
     outline: none;
     border-color: var(--color-brand);
-    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand) 22%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand) 25%, transparent);
   }
   .field-textarea {
     min-height: 120px;
     resize: vertical;
   }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    border-radius: 0.6rem;
+    background: var(--color-brand);
+    color: var(--color-on-brand);
+    font-weight: 700;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Soft amber glow used behind heroes and CTA bands (decorative). */
+@layer components {
+  .hero-glow {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(640px 360px at 78% -6%, rgba(245, 181, 61, 0.14), transparent 70%),
+      radial-gradient(520px 320px at 0% 10%, rgba(120, 140, 180, 0.08), transparent 70%);
+  }
+  .grid-lines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 60% 20%, #000 30%, transparent 75%);
   }
 }

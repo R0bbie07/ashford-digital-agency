@@ -1,0 +1,20 @@
+# Ashford Digital
+
+> Ashford Digital builds monthly-subscription websites for UK small businesses and helps them get customers. It is a sole trader based in Gainsborough, Lincolnshire, run by Robbie. Every site starts as a free private demo built from the business's Google listing, before the owner pays anything.
+
+## Key facts
+- Plans: Starter £29/month, Standard £49/month, Pro £89/month (£59/month founding price for the first 5 Pro clients). No setup fee. No free trial month.
+- Minimum term: 2 monthly payments, then cancel with 30 days' notice.
+- Pro includes the Customer Engine (local demand-timed Google ads with a spend cap paid directly to Google, past-customer reminders, tracked referral codes, introductions to letting agents and builders) and a 60-day results guarantee: first tracked enquiry within 60 days of going live, or 3 months free (conditions apply).
+- No client case studies or reviews yet; the business is taking on its first clients.
+
+## Pages
+- [Home](https://ashforddigital.uk/): what Ashford Digital does
+- [Pricing](https://ashforddigital.uk/pricing): plans and what each includes
+- [Pricing as text](https://ashforddigital.uk/pricing.md)
+- [How it works](https://ashforddigital.uk/how-it-works)
+- [See your site first](https://ashforddigital.uk/see-your-site-first): request a free demo
+- [FAQ](https://ashforddigital.uk/faq)
+- [About](https://ashforddigital.uk/about)
+- [Contact](https://ashforddigital.uk/contact)
+- [Terms](https://ashforddigital.uk/terms)

@@ -1,249 +1,147 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Reveal from "../components/Reveal";
+import SiteMock, { DEMO_SITES } from "../components/SiteMock";
+import {
+  CtaBand,
+  DemoButton,
+  FaqList,
+  Guarantee,
+  PlanCards,
+  ReviewsSlot,
+  SectionHeading,
+} from "../components/ui";
 import {
   Arrow,
-  Bolt,
+  Chart,
   Check,
-  Gauge,
-  Globe,
+  Eye,
+  Lock,
+  Phone,
   Pin,
-  Quote,
-  Rocket,
   Search,
-  Shield,
   Star,
 } from "../components/Icons";
-import { PLANS, SITE } from "../lib/site";
+import { FAQS } from "../lib/content";
+import { CUSTOMER_ENGINE, SITE } from "../lib/site";
 
-const services = [
-  {
-    icon: Globe,
-    title: "Professional Website",
-    text: "A fast, modern site that makes your trade look established and trustworthy — built around the jobs you actually want.",
-  },
-  {
-    icon: Gauge,
-    title: "Lightning Hosting",
-    text: "Hosted on Cloudflare’s global network. Loads in under a second on mobile, so you never lose a customer to a slow page.",
-  },
-  {
-    icon: Search,
-    title: "Local SEO (Pro)",
-    text: "Optimised meta titles, descriptions and a consistent NAP so you show up when locals search for your trade.",
-  },
-  {
-    icon: Pin,
-    title: "Google Business (Pro)",
-    text: "Your Google Business Profile set up properly — the map listing that drives calls from people ready to book.",
-  },
-  {
-    icon: Shield,
-    title: "Domain & Security",
-    text: "We manage your DNS and SSL. Your domain stays yours, always. No tech headaches, ever.",
-  },
-  {
-    icon: Bolt,
-    title: "Ongoing Updates",
-    text: "New service, new number, new photos? Message us and it’s done. Your site stays current without you lifting a finger.",
-  },
+const trust = [
+  "See your site before you pay",
+  "Prices on the page",
+  "Cancel with 30 days' notice after 2 months",
+  `Run from ${SITE.town}, ${SITE.county}`,
 ];
 
-const proof = [
+const pains = [
   {
-    quote:
-      "Had three new enquiries in the first fortnight. The site looks miles better than anything my mates have.",
-    name: "Dave R.",
-    role: "Electrician · Lincolnshire",
+    title: "Quiet months",
+    text: "Word of mouth is great until it slows down, and you can't switch it back on.",
   },
   {
-    quote:
-      "I’m on the first page of Google for ‘boiler repair’ in my town now. Phone hasn’t stopped.",
-    name: "Mark T.",
-    role: "Gas Engineer · Nottinghamshire",
+    title: "Losing to the business down the road",
+    text: "People search for what you do, see a better website, and ring someone else.",
   },
   {
-    quote:
-      "Dead simple. I sent a few photos and a week later I had a proper website. Worth every penny.",
-    name: "Steve C.",
-    role: "Builder · Yorkshire",
+    title: "Burned before",
+    text: "You paid a web company, got a slow site, and then couldn't get hold of them.",
   },
 ];
 
 const steps = [
   {
-    n: "01",
-    title: "Tell us about your trade",
-    text: "Fill in the 5-minute onboarding form — your services, areas and brand.",
+    icon: Search,
+    title: "Found when locals search",
+    text: "Town pages with real local content for the areas you cover, so you show up beyond your own postcode.",
   },
   {
-    n: "02",
-    title: "We build your site",
-    text: "Your professional website is designed and live within 24 hours of payment.",
+    icon: Phone,
+    title: "Easy to call",
+    text: "A call button that stays on screen, plus a photo quote form on Standard. Missed calls land in your dashboard so you can ring back.",
   },
   {
-    n: "03",
-    title: "Start winning work",
-    text: "Get found on Google, look the part, and turn searches into booked jobs.",
+    icon: Star,
+    title: "More reviews",
+    text: "On Standard and Pro, your customers get a review request after each job, so your Google listing keeps growing.",
+  },
+  {
+    icon: Chart,
+    title: "You see what works",
+    text: "Every enquiry shows in your dashboard. On Pro, you also see where each one came from.",
   },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* ----------------------------------------------------------------- */}
-      {/* HERO                                                              */}
-      {/* ----------------------------------------------------------------- */}
-      <section className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
-        {/* soft warm wash behind the hero */}
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px]"
-          style={{
-            background:
-              "radial-gradient(720px 420px at 50% -8%, rgba(245,158,11,0.12), transparent 70%), linear-gradient(180deg, #fbfcfe, #ffffff)",
-          }}
-          aria-hidden
-        />
-        <div className="container-cs">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-mist shadow-sm">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
-              For UK electricians, plumbers, gas engineers &amp; builders
-            </span>
-
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl">
-              Websites that <span className="text-gradient">win you work</span> —
-              not just sit there.
-            </h1>
-
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-mist sm:text-lg">
-              {SITE.name} builds fast, professional websites for trades
-              businesses. Hosting, domain and ongoing updates all included — from{" "}
-              <span className="font-semibold text-cloud">£80/month</span>. No big
-              upfront cost.
+      {/* HERO ------------------------------------------------------------ */}
+      <section className="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
+        <div className="hero-glow" aria-hidden />
+        <div className="grid-lines" aria-hidden />
+        <div className="container-cs relative grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-line-2 bg-panel/70 px-3.5 py-1.5 text-sm text-mist">
+              <span className="h-2 w-2 rounded-full bg-brand" aria-hidden />
+              Websites for UK small businesses
             </p>
-
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link to="/onboarding" className="btn-primary w-full sm:w-auto">
-                Get my website <Arrow width={18} height={18} />
+            <h1 className="mt-6 text-[clamp(2.5rem,1.6rem+3.6vw,4.1rem)] font-extrabold">
+              A website that brings in customers.{" "}
+              <span className="text-brand">See it before you pay.</span>
+            </h1>
+            <p className="lead mt-6 max-w-xl">
+              We build your new site from your Google listing first, for free. If you like it, it
+              goes live from £29 a month. Pro adds the Customer Engine, which goes out and finds you
+              work.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <DemoButton className="w-full sm:w-auto" />
+              <Link to="/pricing" className="btn-ghost w-full sm:w-auto">
+                See prices
               </Link>
-              <a href="#pricing" className="btn-ghost w-full sm:w-auto">
-                See pricing
-              </a>
             </div>
+            <p className="mt-4 text-sm text-mist">Free. Takes about a minute. No card needed.</p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-mist">
-              <span className="inline-flex items-center gap-2">
-                <Check width={16} height={16} className="text-brand" /> Live in 24
-                hours
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Check width={16} height={16} className="text-brand" /> Cancel
-                anytime (30 days’ notice)
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Check width={16} height={16} className="text-brand" /> You own
-                your domain
-              </span>
+            <ul className="mt-10 grid gap-x-6 gap-y-3 text-[0.95rem] sm:grid-cols-2">
+              {trust.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span className="tick">
+                    <Check width={13} height={13} aria-hidden />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <motion.div
+            className="relative hidden sm:block"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <SiteMock site={DEMO_SITES[0]} label="Example demo (made-up business)" />
+            <div className="card absolute -left-4 bottom-16 hidden w-56 p-4 text-sm shadow-2xl xl:block" aria-hidden>
+              <p className="flex items-center gap-2 font-semibold">
+                <span className="h-2 w-2 rounded-full bg-good" /> Your dashboard
+              </p>
+              <p className="mt-2 text-mist">Every call and form in one list, with where it came from.</p>
             </div>
           </motion.div>
-
-          {/* Light browser preview built from pure CSS — no images */}
-          <Reveal delay={0.15} className="mx-auto mt-16 max-w-4xl">
-            <div className="rounded-3xl border border-line bg-white p-2 elev-md">
-              <div className="rounded-[1.25rem] border border-line bg-ink-2">
-                <div className="flex items-center gap-2 border-b border-line px-4 py-3">
-                  <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-                  <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-                  <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-                  <span className="ml-3 flex-1 truncate rounded-md border border-line bg-white px-3 py-1 text-xs text-mist">
-                    rj-electrical.co.uk
-                  </span>
-                </div>
-                <div className="grid gap-4 p-6 sm:grid-cols-[1.3fr_1fr]">
-                  <div>
-                    <div className="h-3 w-24 rounded-full bg-brand/70" />
-                    <div className="mt-4 h-7 w-3/4 rounded-lg bg-cloud/85" />
-                    <div className="mt-2 h-7 w-1/2 rounded-lg bg-cloud/35" />
-                    <div className="mt-5 space-y-2">
-                      <div className="h-2.5 w-full rounded-full bg-line" />
-                      <div className="h-2.5 w-5/6 rounded-full bg-line" />
-                    </div>
-                    <div className="mt-6 flex gap-3">
-                      <div className="h-9 w-28 rounded-full bg-gradient-to-r from-brand to-brand-2" />
-                      <div className="h-9 w-24 rounded-full border border-line bg-white" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    {[Globe, Shield, Gauge, Pin].map((Ic, i) => (
-                      <div
-                        key={i}
-                        className="grid place-items-center rounded-xl border border-line bg-panel-2 py-6 text-brand"
-                      >
-                        <Ic width={26} height={26} />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Reveal>
         </div>
       </section>
 
-      {/* ----------------------------------------------------------------- */}
-      {/* SERVICES                                                          */}
-      {/* ----------------------------------------------------------------- */}
-      <section id="services" className="scroll-mt-24 py-20 sm:py-28">
+      {/* PROBLEM --------------------------------------------------------- */}
+      <section className="section border-t border-line bg-ink-2">
         <div className="container-cs">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-bold uppercase tracking-widest text-accent">
-              What you get
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Everything handled, for one monthly fee
-            </h2>
-            <p className="mt-4 text-mist">
-              No web design jargon, no hidden costs. Just a website that works as
-              hard as you do.
-            </p>
-          </Reveal>
-
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.05}>
-                <article className="group h-full rounded-2xl border border-line bg-white p-6 elev-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-xl">
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15 transition-colors">
-                    <s.icon width={24} height={24} />
-                  </div>
-                  <h3 className="mt-5 text-lg font-bold">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-mist">{s.text}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ----------------------------------------------------------------- */}
-      {/* HOW IT WORKS                                                      */}
-      {/* ----------------------------------------------------------------- */}
-      <section className="border-y border-line bg-ink-2 py-16 sm:py-20">
-        <div className="container-cs">
-          <div className="grid gap-5 md:grid-cols-3">
-            {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.08}>
-                <div className="relative h-full rounded-2xl border border-line bg-white p-6 elev-sm">
-                  <span className="text-4xl font-extrabold text-gradient">
-                    {s.n}
-                  </span>
-                  <h3 className="mt-3 text-lg font-bold">{s.title}</h3>
-                  <p className="mt-2 text-sm text-mist">{s.text}</p>
+          <SectionHeading
+            eyebrow="Sound familiar?"
+            title="You're good at the job. Getting the phone to ring is the hard part."
+          />
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {pains.map((p, i) => (
+              <Reveal key={p.title} delay={i * 0.06}>
+                <div className="card h-full p-6">
+                  <h3 className="text-xl font-bold">{p.title}</h3>
+                  <p className="mt-2 text-mist">{p.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -251,175 +149,175 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ----------------------------------------------------------------- */}
-      {/* PRICING                                                           */}
-      {/* ----------------------------------------------------------------- */}
-      <section id="pricing" className="scroll-mt-24 py-20 sm:py-28">
-        <div className="container-cs">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-bold uppercase tracking-widest text-accent">
-              Simple pricing
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              One flat monthly fee. No surprises.
-            </h2>
-            <p className="mt-4 text-mist">
-              Both plans include hosting, domain management and ongoing updates.
-              Cancel any time with 30 days’ notice.
-            </p>
-          </Reveal>
-
-          <div className="mx-auto mt-14 grid max-w-4xl gap-6 md:grid-cols-2">
-            {PLANS.map((plan, i) => (
-              <Reveal key={plan.id} delay={i * 0.08}>
-                <div
-                  className={`relative flex h-full flex-col rounded-3xl border p-8 ${
-                    plan.highlighted
-                      ? "border-brand bg-white elev-md ring-1 ring-brand/30"
-                      : "border-line bg-white elev-sm"
-                  }`}
-                >
-                  {plan.highlighted && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-brand to-brand-2 px-4 py-1 text-xs font-bold text-[#2a1a00] shadow-sm">
-                      Most popular
-                    </span>
-                  )}
-                  <h3 className="text-xl font-bold">{plan.id}</h3>
-                  <p className="mt-1 text-sm text-mist">{plan.blurb}</p>
-                  <div className="mt-6 flex items-end gap-1">
-                    <span className="text-5xl font-extrabold tracking-tight">
-                      £{plan.price}
-                    </span>
-                    <span className="mb-1.5 text-mist">{plan.cadence}</span>
-                  </div>
-
-                  <div className="mt-5">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-2 px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-[#2a1a00] shadow-[0_8px_24px_-10px_rgba(245,158,11,0.7)] ring-1 ring-brand/40">
-                      <Star width={13} height={13} /> First 30 days free
-                    </span>
-                  </div>
-
-                  <ul className="mt-7 flex-1 space-y-3">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-sm">
-                        <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand/15 text-brand">
-                          <Check width={13} height={13} />
-                        </span>
-                        <span className="text-cloud/90">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to={`/onboarding?plan=${plan.id}`}
-                    className={`mt-8 ${plan.highlighted ? "btn-primary" : "btn-ghost"}`}
-                  >
-                    Choose {plan.id} <Arrow width={18} height={18} />
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <p className="mt-6 text-center text-xs text-mist">
-            Payments collected securely via Stripe. Prices in GBP. No setup fee.
-          </p>
-        </div>
-      </section>
-
-      {/* ----------------------------------------------------------------- */}
-      {/* SOCIAL PROOF                                                      */}
-      {/* ----------------------------------------------------------------- */}
-      <section id="proof" className="scroll-mt-24 border-t border-line bg-ink-2 py-20 sm:py-28">
-        <div className="container-cs">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <div className="mb-3 flex items-center justify-center gap-1 text-gold">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} width={20} height={20} />
-              ))}
-            </div>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Trusted by trades who’d rather be on the tools
-            </h2>
-            <p className="mt-4 text-mist">
-              Real results, plain and simple. Here’s what business owners say.
-            </p>
-          </Reveal>
-
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {proof.map((p, i) => (
-              <Reveal key={p.name} delay={i * 0.06}>
-                <figure className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 elev-sm">
-                  <Quote width={28} height={28} className="text-brand/60" />
-                  <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-cloud/90">
-                    “{p.quote}”
-                  </blockquote>
-                  <figcaption className="mt-6 flex items-center gap-3">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-brand to-brand-2 text-sm font-bold text-[#2a1a00]">
-                      {p.name.charAt(0)}
-                    </span>
-                    <span>
-                      <span className="block text-sm font-semibold">{p.name}</span>
-                      <span className="block text-xs text-mist">{p.role}</span>
-                    </span>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={0.1}>
-            <div className="mt-12 grid gap-4 rounded-3xl border border-line bg-white p-8 elev-sm sm:grid-cols-3">
+      {/* SEE IT FIRST ---------------------------------------------------- */}
+      <section className="section">
+        <div className="container-cs grid items-center gap-12 lg:grid-cols-2">
+          <SectionHeading
+            center={false}
+            eyebrow="See your site first"
+            title="We build it before you decide."
+            intro="Send us your business name and town. We use your Google listing to build a private demo of your new site, and you look at it on your own phone. Only pay if you want it."
+          />
+          <Reveal delay={0.08}>
+            <ol className="space-y-4">
               {[
-                { stat: "24 hrs", label: "Average go-live time" },
-                { stat: "< 1 sec", label: "Mobile load speed" },
-                { stat: "£0", label: "Upfront cost" },
-              ].map((m) => (
-                <div key={m.label} className="text-center">
-                  <p className="text-4xl font-extrabold text-gradient">{m.stat}</p>
-                  <p className="mt-1 text-sm text-mist">{m.label}</p>
-                </div>
+                { icon: Eye, t: "Ask for your demo", d: "One short form. About a minute." },
+                { icon: Lock, t: "We build it privately", d: "Built from your Google listing. Nobody else sees it." },
+                { icon: Check, t: "You decide", d: "Like it? Pick a plan and it goes live. If not, no charge." },
+              ].map((s, i) => (
+                <li key={s.t} className="card flex gap-4 p-5">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand/15 text-brand">
+                    <s.icon width={22} height={22} aria-hidden />
+                  </span>
+                  <div>
+                    <p className="font-semibold">
+                      <span className="text-mist">{i + 1}.</span> {s.t}
+                    </p>
+                    <p className="text-mist">{s.d}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </Reveal>
         </div>
       </section>
 
-      {/* ----------------------------------------------------------------- */}
-      {/* CTA                                                               */}
-      {/* ----------------------------------------------------------------- */}
-      <section className="py-20 sm:py-24">
+      {/* HOW WE GET YOU CUSTOMERS --------------------------------------- */}
+      <section className="section border-y border-line bg-ink-2" id="how-we-get-you-customers">
         <div className="container-cs">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-[2rem] bg-navy px-6 py-14 text-center text-white sm:px-12 sm:py-20">
-              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/25 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand/15 blur-3xl" />
-              <div className="relative">
-                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-[#2a1a00]">
-                  <Rocket width={26} height={26} />
+          <SectionHeading
+            eyebrow="How we get you customers"
+            title="What actually brings in enquiries."
+            intro="A nice-looking site on its own won't make the phone ring. These are the parts that do the work."
+          />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {steps.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.05}>
+                <div className="card h-full p-6">
+                  <s.icon width={26} height={26} className="text-brand" aria-hidden />
+                  <h3 className="mt-4 text-xl font-bold">{s.title}</h3>
+                  <p className="mt-2 text-mist">{s.text}</p>
                 </div>
-                <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                  Ready to look like the professional you are?
-                </h2>
-                <p className="mx-auto mt-4 max-w-xl text-[#aebbd0]">
-                  Get a website your customers trust — live within 24 hours. Takes
-                  5 minutes to get started.
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.05}>
+            <div className="mt-5 rounded-[1.4rem] border border-brand/50 bg-panel-2 p-7 sm:p-10">
+              <p className="eyebrow">Pro only</p>
+              <h3 className="mt-2 text-2xl font-bold sm:text-3xl">The Customer Engine goes looking for work.</h3>
+              <div className="mt-6 grid gap-6 md:grid-cols-2">
+                {CUSTOMER_ENGINE.map((c) => (
+                  <div key={c.title} className="flex gap-3">
+                    <span className="tick">
+                      <Check width={13} height={13} aria-hidden />
+                    </span>
+                    <div>
+                      <p className="font-semibold">{c.title}</p>
+                      <p className="mt-1 text-mist">{c.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <div className="mt-5 grid gap-4 rounded-[1.4rem] border border-line p-6 sm:grid-cols-[auto_1fr] sm:p-8">
+              <Pin width={26} height={26} className="text-mist" aria-hidden />
+              <div>
+                <p className="font-semibold">The honest bit</p>
+                <p className="mt-1 text-mist">
+                  Google decides search rankings, so nobody can promise you a top spot, and showing
+                  up for new towns takes weeks rather than days. We can't answer your phone or do
+                  the job either. If you answer calls and reply to enquiries, everything above
+                  works much harder for you.
                 </p>
-                <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                  <Link to="/onboarding" className="btn-primary w-full sm:w-auto">
-                    Start now <Arrow width={18} height={18} />
-                  </Link>
-                  <a
-                    href={`mailto:${SITE.email}`}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-[0.85rem] border border-white/25 px-6 py-3.5 font-bold text-white transition-colors hover:bg-white/10 sm:w-auto"
-                  >
-                    Ask a question
-                  </a>
-                </div>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
+
+      {/* PRICING ---------------------------------------------------------- */}
+      <section className="section">
+        <div className="container-cs">
+          <SectionHeading
+            eyebrow="Pricing"
+            title="Pay monthly. No setup fee."
+            intro="Every plan includes a 5-page site built for phones, hosting, a call button that stays on screen, and a dashboard of your enquiries."
+          />
+          <div className="mt-12">
+            <PlanCards compact />
+          </div>
+          <p className="mt-8 text-center">
+            <Link to="/pricing" className="inline-flex min-h-11 items-center gap-2 font-semibold text-accent hover:underline">
+              Compare everything in each plan <Arrow width={16} height={16} aria-hidden />
+            </Link>
+          </p>
+          <div className="mt-12">
+            <Guarantee />
+          </div>
+        </div>
+      </section>
+
+      {/* EXAMPLES ------------------------------------------------------- */}
+      <section className="section border-y border-line bg-ink-2">
+        <div className="container-cs grid items-center gap-12 lg:grid-cols-2">
+          <SectionHeading
+            center={false}
+            eyebrow="Examples"
+            title="Built for the phone in your customer's hand."
+            intro="Most people will find you on a phone, often in a hurry. Your site loads fast, shows what you do, and keeps the call button in reach."
+          />
+          <Reveal delay={0.08}>
+            <div className="grid grid-cols-2 gap-6">
+              <SiteMock site={DEMO_SITES[1]} label="Demo" />
+              <div className="mt-10">
+                <SiteMock site={DEMO_SITES[2]} label="Demo" />
+              </div>
+            </div>
+            <p className="mt-6 text-center text-sm text-mist">
+              Made-up businesses, shown as demos.{" "}
+              <Link to="/examples" className="font-semibold text-accent underline underline-offset-4">
+                See all examples
+              </Link>
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* REVIEWS ---------------------------------------------------------- */}
+      <section className="section">
+        <div className="container-cs">
+          <ReviewsSlot />
+        </div>
+      </section>
+
+      {/* FAQ -------------------------------------------------------------- */}
+      <section className="section pt-0">
+        <div className="container-cs grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <SectionHeading
+            center={false}
+            eyebrow="Questions"
+            title="The things people ask first."
+            intro={
+              <>
+                More answers on the{" "}
+                <Link to="/faq" className="text-accent underline underline-offset-4">
+                  FAQ page
+                </Link>
+                .
+              </>
+            }
+          />
+          <Reveal delay={0.06}>
+            <FaqList items={FAQS.slice(0, 5)} />
+          </Reveal>
+        </div>
+      </section>
+
+      <CtaBand />
     </>
   );
 }

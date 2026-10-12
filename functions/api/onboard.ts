@@ -13,8 +13,11 @@
  *   RESEND_API_KEY            — your Resend API key
  *   FROM_EMAIL    (optional)  — verified sender, e.g. "Ashford Digital <onboarding@ashforddigital.co.uk>"
  *   AGENCY_EMAIL  (optional)  — where leads are sent (default ashforddigital10@gmail.com)
- *   STRIPE_STANDARD_LINK      — Stripe payment link for the £80 plan
- *   STRIPE_PRO_LINK           — Stripe payment link for the £120 plan
+ *   STRIPE_STARTER_LINK       — Stripe payment link for the £29 plan
+ *   STRIPE_STANDARD_LINK      — Stripe payment link for the £49 plan
+ *   STRIPE_PRO_LINK           — Stripe payment link for founding Pro (£59)
+ *   STRIPE_PRO_FULL_LINK      — Stripe payment link for full-price Pro (£89)
+ *   (All four fall back to the links in DEFAULT_LINKS below.)
  *
  * Optional KV binding:
  *   ONBOARDING_KV             — namespace for JSON backups
@@ -28,8 +31,10 @@ interface Env {
   RESEND_API_KEY: string;
   FROM_EMAIL?: string;
   AGENCY_EMAIL?: string;
+  STRIPE_STARTER_LINK?: string;
   STRIPE_STANDARD_LINK?: string;
   STRIPE_PRO_LINK?: string;
+  STRIPE_PRO_FULL_LINK?: string;
   ONBOARDING_KV?: KVNamespaceLike;
 }
 
@@ -37,6 +42,17 @@ interface EventContext {
   request: Request;
   env: Env;
 }
+
+type PlanId = "Starter" | "Standard" | "Pro";
+const DEFAULT_PRICES: Record<PlanId, string> = { Starter: "29", Standard: "49", Pro: "89" };
+
+// Public Stripe Payment Links, used when no Cloudflare variable is set.
+const DEFAULT_LINKS = {
+  Starter: "https://buy.stripe.com/fZubJ13Hqau63Nt66A2sM02",
+  Standard: "https://buy.stripe.com/5kQfZhguceKm1FlamQ2sM03",
+  ProFounding: "https://buy.stripe.com/dRm5kDem4gSucjZ3Ys2sM04",
+  ProFull: "https://buy.stripe.com/fZu14ncdW7hU6ZF7aE2sM05",
+};
 
 const DEFAULT_FROM = "Ashford Digital <onboarding@ashforddigital.co.uk>";
 const DEFAULT_AGENCY = "ashforddigital10@gmail.com";
@@ -115,6 +131,9 @@ export const onRequestPost = async (context: EventContext): Promise<Response> =>
   }
 
   const get = (k: string) => String(formData.get(k) ?? "").trim();
+  const rawPlan = get("plan");
+  const plan: PlanId =
+    rawPlan === "Pro" || rawPlan === "Starter" ? rawPlan : "Standard";
 
   const data = {
     fullName: get("fullName"),
@@ -123,8 +142,8 @@ export const onRequestPost = async (context: EventContext): Promise<Response> =>
     location: get("location"),
     phone: get("phone"),
     email: get("email"),
-    plan: get("plan") === "Pro" ? "Pro" : "Standard",
-    pricePerMonth: get("pricePerMonth") || (get("plan") === "Pro" ? "120" : "80"),
+    plan: plan,
+    pricePerMonth: get("pricePerMonth") || DEFAULT_PRICES[plan],
     hasDomain: get("hasDomain"),
     domainName: get("domainName"),
     about: get("about"),
@@ -144,10 +163,16 @@ export const onRequestPost = async (context: EventContext): Promise<Response> =>
 
   const from = env.FROM_EMAIL || DEFAULT_FROM;
   const agencyEmail = env.AGENCY_EMAIL || DEFAULT_AGENCY;
+  // Pro: £89 means founding places are gone, so use the full-price link.
+  const proFull = data.pricePerMonth === "89";
   const stripeLink =
-    data.plan === "Pro"
-      ? env.STRIPE_PRO_LINK || ""
-      : env.STRIPE_STANDARD_LINK || "";
+    {
+      Starter: env.STRIPE_STARTER_LINK || DEFAULT_LINKS.Starter,
+      Standard: env.STRIPE_STANDARD_LINK || DEFAULT_LINKS.Standard,
+      Pro: proFull
+        ? env.STRIPE_PRO_FULL_LINK || DEFAULT_LINKS.ProFull
+        : env.STRIPE_PRO_LINK || DEFAULT_LINKS.ProFounding,
+    }[plan] || "";
 
   // ---- Logo attachment ------------------------------------------------- //
   const attachments: ResendAttachment[] = [];

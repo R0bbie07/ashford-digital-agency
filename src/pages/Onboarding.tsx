@@ -1,8 +1,7 @@
-import { useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Arrow, Check, Rocket } from "../components/Icons";
-import { PLANS, SITE, TRADES, type PlanId } from "../lib/site";
+import { BUSINESS_TYPES, PLANS, SITE, planPrice, type PlanId } from "../lib/site";
 
 interface FormState {
   fullName: string;
@@ -41,11 +40,15 @@ const initialState = (plan: PlanId): FormState => ({
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function Onboarding() {
-  const [params] = useSearchParams();
-  const planFromUrl = params.get("plan");
-  const initialPlan: PlanId = planFromUrl === "Pro" ? "Pro" : "Standard";
+  const [form, setForm] = useState<FormState>(initialState("Standard"));
 
-  const [form, setForm] = useState<FormState>(initialState(initialPlan));
+  // Pick up ?plan= after the page loads (keeps the pre-built HTML in sync).
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search).get("plan");
+    if (p === "Starter" || p === "Standard" || p === "Pro") {
+      setForm((f) => ({ ...f, plan: p }));
+    }
+  }, []);
   const [logo, setLogo] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -57,8 +60,16 @@ export default function Onboarding() {
     [form.plan]
   );
 
+  const price = planPrice(selectedPlan);
+
   const stripeLink =
-    form.plan === "Pro" ? SITE.stripeProLink : SITE.stripeStandardLink;
+    form.plan === "Pro"
+      ? SITE.foundingProOpen
+        ? SITE.stripeProFoundingLink
+        : SITE.stripeProFullLink
+      : form.plan === "Starter"
+        ? SITE.stripeStarterLink
+        : SITE.stripeStandardLink;
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -127,7 +138,7 @@ export default function Onboarding() {
       submittedAt: new Date().toISOString(),
       ...form,
       logoFileName: logo?.name ?? null,
-      pricePerMonth: selectedPlan.price,
+      pricePerMonth: price,
     };
     const blob = new Blob([JSON.stringify(backup, null, 2)], {
       type: "application/json",
@@ -170,7 +181,7 @@ export default function Onboarding() {
       fd.append("phone", form.phone);
       fd.append("email", form.email);
       fd.append("plan", form.plan);
-      fd.append("pricePerMonth", String(selectedPlan.price));
+      fd.append("pricePerMonth", String(price));
       fd.append("hasDomain", form.hasDomain);
       fd.append("domainName", form.domainName);
       fd.append("about", form.about);
@@ -198,15 +209,15 @@ export default function Onboarding() {
   /* --------------------------- Success screen --------------------------- */
   if (status === "success") {
     return (
-      <section className="pt-28 pb-24">
+      <section className="pt-32 pb-24 sm:pt-40">
         <div className="container-cs max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="rounded-3xl border border-line bg-white elev-sm p-8 text-center sm:p-12"
+            className="rounded-3xl border border-line bg-panel elev-sm p-8 text-center sm:p-12"
           >
-            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-[#2a1a00]">
+            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-on-brand">
               <Check width={30} height={30} />
             </div>
             <h1 className="mt-6 text-3xl font-bold tracking-tight">
@@ -219,15 +230,15 @@ export default function Onboarding() {
               <strong className="text-cloud">{form.email}</strong>.
             </p>
 
-            <div className="mt-8 rounded-2xl border border-line bg-ink-2/60 p-6 text-left">
+            <div className="mt-8 rounded-2xl border border-line bg-ink p-6 text-left">
               <h2 className="text-sm font-semibold text-cloud">
                 What happens next
               </h2>
               <ol className="mt-4 space-y-4">
                 {[
-                  "Complete your first payment using the secure Stripe link below — this kicks off your build.",
-                  "We design and build your website around the details you’ve given us.",
-                  "Your professional site goes live within 24 hours of payment.",
+                  "Complete your first payment using the secure Stripe link below. This starts your build.",
+                  "We finish your website using the details and photos you’ve given us.",
+                  "We let you know when your site is live.",
                 ].map((t, i) => (
                   <li key={i} className="flex gap-3 text-sm text-mist">
                     <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/20 text-xs font-semibold text-accent">
@@ -239,29 +250,28 @@ export default function Onboarding() {
               </ol>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-brand/40 bg-brand/10 p-5">
-              <p className="text-sm text-cloud">
-                <strong>24-hour delivery promise:</strong> once your first payment
-                lands, your website will be live within 24 hours.
-              </p>
-            </div>
-
+            {stripeLink ? (
             <a
               href={stripeLink}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary mt-7 w-full"
             >
-              Pay £{selectedPlan.price}/month & start my build{" "}
+              Pay £{price}/month & start my build{" "}
               <Arrow width={18} height={18} />
             </a>
+            ) : (
+              <p className="mt-7 rounded-xl border border-line p-4 text-sm text-mist">
+                We'll send you your secure payment link personally.
+              </p>
+            )}
             <p className="mt-3 text-xs text-mist">
-              Secure payment via Stripe · {form.plan} plan · cancel anytime with
-              30 days’ notice
+              Secure payment via Stripe · {form.plan} plan · minimum 2 payments,
+              then cancel with 30 days’ notice
             </p>
             <p className="mt-6 text-xs text-mist">
               A backup copy of your answers was saved to your device as a JSON
-              file. Keep it safe — no action needed.
+              file. Keep it safe. You don’t need to do anything with it.
             </p>
           </motion.div>
         </div>
@@ -272,13 +282,13 @@ export default function Onboarding() {
   /* ------------------------------- Form -------------------------------- */
   const fieldError = (key: string) =>
     errors[key] ? (
-      <p data-error="true" className="mt-1 text-xs text-[#ff7a7a]">
+      <p data-error="true" className="mt-1 text-xs text-bad">
         {errors[key]}
       </p>
     ) : null;
 
   return (
-    <section className="pt-28 pb-24">
+    <section className="pt-32 pb-24 sm:pt-40">
       <div className="container-cs max-w-3xl">
         <motion.header
           initial={{ opacity: 0, y: 16 }}
@@ -286,15 +296,15 @@ export default function Onboarding() {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-[#2a1a00]">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand to-brand-2 text-on-brand">
             <Rocket width={26} height={26} />
           </div>
           <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">
             Let’s build your website
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-mist">
-            This takes about 5 minutes. The more detail you give, the better your
-            site will be. Your site goes live within 24 hours of payment.
+            Seen your demo and ready to go? This takes about 5 minutes. The more
+            detail you give, the better your site will be.
           </p>
         </motion.header>
 
@@ -307,11 +317,11 @@ export default function Onboarding() {
           noValidate
         >
           {/* Plan selector */}
-          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
+          <fieldset className="rounded-2xl border border-line bg-panel elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Your plan
             </legend>
-            <div className="mt-2 grid gap-3 sm:grid-cols-2">
+            <div className="mt-2 grid gap-3 sm:grid-cols-3">
               {PLANS.map((p) => {
                 const active = form.plan === p.id;
                 return (
@@ -322,17 +332,17 @@ export default function Onboarding() {
                     className={`rounded-xl border p-4 text-left transition-all ${
                       active
                         ? "border-brand bg-brand/10 ring-1 ring-brand"
-                        : "border-line bg-ink-2/50 hover:border-brand/40"
+                        : "border-line bg-ink hover:border-brand/40"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-semibold">{p.id}</span>
                       <span className="text-lg font-bold">
-                        £{p.price}
+                        £{planPrice(p)}
                         <span className="text-xs font-normal text-mist">/mo</span>
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-mist">{p.blurb}</p>
+                    <p className="mt-1 text-xs text-mist">{p.forWho}</p>
                     {active && (
                       <span className="mt-2 inline-flex items-center gap-1 text-xs text-accent">
                         <Check width={13} height={13} /> Selected
@@ -345,7 +355,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* Your details */}
-          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
+          <fieldset className="rounded-2xl border border-line bg-panel elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Your details
             </legend>
@@ -379,7 +389,7 @@ export default function Onboarding() {
               </div>
               <div>
                 <label className="field-label" htmlFor="tradeType">
-                  Trade type
+                  Type of business
                 </label>
                 <select
                   id="tradeType"
@@ -387,8 +397,8 @@ export default function Onboarding() {
                   value={form.tradeType}
                   onChange={(e) => update("tradeType", e.target.value)}
                 >
-                  <option value="">Select your trade…</option>
-                  {TRADES.map((t) => (
+                  <option value="">Choose one…</option>
+                  {BUSINESS_TYPES.map((t) => (
                     <option key={t} value={t}>
                       {t}
                     </option>
@@ -443,7 +453,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* Domain */}
-          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
+          <fieldset className="rounded-2xl border border-line bg-panel elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Domain
             </legend>
@@ -457,7 +467,7 @@ export default function Onboarding() {
                   className={`flex-1 rounded-xl border px-4 py-3 text-sm font-medium capitalize transition-all ${
                     form.hasDomain === v
                       ? "border-brand bg-brand/10 ring-1 ring-brand"
-                      : "border-line bg-ink-2/50 hover:border-brand/40"
+                      : "border-line bg-ink hover:border-brand/40"
                   }`}
                 >
                   {v === "yes" ? "Yes, I have one" : "No, I need one"}
@@ -488,12 +498,12 @@ export default function Onboarding() {
                     />
                     {fieldError("domainName")}
                   </div>
-                  <div className="mt-4 rounded-xl border border-line bg-ink-2/60 p-4 text-sm text-mist">
+                  <div className="mt-4 rounded-xl border border-line bg-ink p-4 text-sm text-mist">
                     <p className="font-semibold text-cloud">
                       How to give us access to manage your DNS
                     </p>
                     <p className="mt-2">
-                      We only need to manage your DNS — you keep full ownership of
+                      We only need to manage your DNS. You keep full ownership of
                       the domain. Please log in to your domain registrar (e.g.
                       GoDaddy, 123 Reg, Namecheap, IONOS) and either:
                     </p>
@@ -509,7 +519,7 @@ export default function Onboarding() {
                       </li>
                     </ul>
                     <p className="mt-2">
-                      Never email passwords in plain text — we’ll send you a secure
+                      Never email passwords in plain text. We’ll send you a secure
                       method once you’re onboarded.
                     </p>
                   </div>
@@ -521,9 +531,9 @@ export default function Onboarding() {
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="mt-4 overflow-hidden rounded-xl border border-line bg-ink-2/60 p-4 text-sm text-mist"
+                  className="mt-4 overflow-hidden rounded-xl border border-line bg-ink p-4 text-sm text-mist"
                 >
-                  No problem — we’ll suggest and register a great domain for your
+                  No problem. We’ll suggest and register a domain for your
                   business and manage everything. You’ll own it from day one.
                 </motion.p>
               )}
@@ -531,13 +541,13 @@ export default function Onboarding() {
           </fieldset>
 
           {/* Branding */}
-          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
+          <fieldset className="rounded-2xl border border-line bg-panel elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               Branding
             </legend>
 
             <div className="mt-2">
-              <label className="field-label">Logo (PNG or SVG)</label>
+              <p className="field-label">Logo (PNG or SVG)</p>
               <div className="flex flex-wrap items-center gap-3">
                 <button
                   type="button"
@@ -547,7 +557,7 @@ export default function Onboarding() {
                   {logo ? "Change file" : "Upload logo"}
                 </button>
                 <span className="text-sm text-mist">
-                  {logo ? logo.name : "Optional — PNG or SVG, up to 5 MB"}
+                  {logo ? logo.name : "Optional. PNG or SVG, up to 5 MB"}
                 </span>
                 <input
                   ref={fileRef}
@@ -561,9 +571,9 @@ export default function Onboarding() {
             </div>
 
             <div className="mt-6">
-              <label className="field-label">
-                Brand colours (up to 3 — pick what fits your business)
-              </label>
+              <p className="field-label">
+                Brand colours (up to 3, pick what fits your business)
+              </p>
               <div className="flex flex-wrap gap-4">
                 {form.colours.map((c, i) => (
                   <div key={i} className="flex items-center gap-2">
@@ -578,6 +588,7 @@ export default function Onboarding() {
                       type="text"
                       value={c}
                       onChange={(e) => setColour(i, e.target.value)}
+                      aria-label={`Brand colour ${i + 1} hex code`}
                       className="field-input !w-28 !py-2 text-xs uppercase"
                     />
                   </div>
@@ -587,7 +598,7 @@ export default function Onboarding() {
           </fieldset>
 
           {/* About + services */}
-          <fieldset className="rounded-2xl border border-line bg-white elev-sm p-6">
+          <fieldset className="rounded-2xl border border-line bg-panel elev-sm p-6">
             <legend className="px-2 text-sm font-semibold text-cloud">
               About your business
             </legend>
@@ -627,14 +638,14 @@ export default function Onboarding() {
                   className="field-input"
                   value={form.social}
                   onChange={(e) => update("social", e.target.value)}
-                  placeholder="Facebook, Instagram, etc. — paste links separated by commas"
+                  placeholder="Facebook, Instagram, etc. Paste links separated by commas"
                 />
               </div>
             </div>
           </fieldset>
 
           {status === "error" && (
-            <div className="rounded-xl border border-[#ff7a7a]/40 bg-[#ff7a7a]/10 p-4 text-sm text-[#ffb4b4]">
+            <div className="rounded-xl border border-[#ff7a7a]/40 bg-[#ff7a7a]/10 p-4 text-sm text-bad">
               {errorMsg}{" "}
               <a href={`mailto:${SITE.email}`} className="underline">
                 Email us instead

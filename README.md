@@ -1,14 +1,40 @@
 # Ashford Digital — Agency Website
 
-The site your trades clients land on. Built with **Vite + React + TypeScript +
-Tailwind CSS v4 + Framer Motion**, deployed to **Cloudflare Pages** with a
-Pages Function for the onboarding form.
+The Ashford Digital agency site. Built with **Vite + React + TypeScript +
+Tailwind CSS v4 + Framer Motion**, deployed to **Cloudflare Pages** with Pages
+Functions for the forms. Every page is pre-rendered to HTML at build time
+(`scripts/prerender.mjs`) with its own title, description and schema.
 
-Pages:
+Pages: `/` home · `/pricing` (Starter £29, Standard £49, Pro £89, founding Pro
+£59) · `/how-it-works` · `/see-your-site-first` (demo request) · `/examples`
+(clearly labelled demo sites) · `/about` · `/faq` · `/contact` · `/terms` ·
+`/onboarding` (sign-up form for clients who have seen their demo). `/demo`
+redirects to `/see-your-site-first` (handy for QR codes).
 
-- `/` — hero, services, pricing (Standard £80/mo, Pro £120/mo), social proof, CTA
-- `/terms` — full UK legal Terms & Conditions
-- `/onboarding` — client onboarding form (emails + Stripe + JSON backup)
+## Things to fill in
+
+Open `src/lib/site.ts`:
+
+- `phone` — your number. Empty = the Call buttons are hidden.
+- `whatsapp` — e.g. `447123456789`. Empty = the WhatsApp buttons are hidden.
+- `foundingProOpen` — set to `false` once 5 Pro clients have signed up.
+
+Real reviews go in `REVIEWS` in `src/lib/content.ts` (leave empty until you
+have real ones). Shared copy and FAQs also live there.
+
+## Demo requests (See your site first)
+
+`functions/api/demo.ts` **only saves** each request to the `ONBOARDING_KV`
+namespace (keys start with `demo:`). It sends no emails or messages. Set up the
+KV namespace (see below), then view requests in Cloudflare → Storage &
+Databases → KV → ONBOARDING_KV, or:
+
+```bash
+npx wrangler kv key list --binding ONBOARDING_KV --prefix demo: --remote
+```
+
+If KV isn't set up, the form shows the visitor buttons to send their details
+by email/WhatsApp themselves, so no request is lost.
 
 ## Quick start (local dev)
 
@@ -70,10 +96,12 @@ Set these in **Cloudflare Pages → Settings → Variables & Secrets**
 | `RESEND_API_KEY`       | secret | `/api/onboard`     | Resend API key — sends both emails                          |
 | `FROM_EMAIL`           | var    | `/api/onboard`     | Verified Resend sender, e.g. `Ashford Digital <onboarding@ashforddigital.co.uk>` |
 | `AGENCY_EMAIL`         | var    | `/api/onboard`     | Where leads are sent (default `ashforddigital10@gmail.com`) |
-| `STRIPE_STANDARD_LINK` | var    | `/api/onboard`     | Stripe payment link for the £80 plan                        |
-| `STRIPE_PRO_LINK`      | var    | `/api/onboard`     | Stripe payment link for the £120 plan                       |
-| `VITE_STRIPE_STANDARD_LINK` | build var | client confirmation screen | Same £80 link, exposed to the front-end           |
-| `VITE_STRIPE_PRO_LINK` | build var | client confirmation screen | Same £120 link, exposed to the front-end             |
+| `STRIPE_STARTER_LINK`  | var    | `/api/onboard`     | Stripe payment link for the £29 plan                        |
+| `STRIPE_STANDARD_LINK` | var    | `/api/onboard`     | Stripe payment link for the £49 plan                        |
+| `STRIPE_PRO_LINK`      | var    | `/api/onboard`     | Stripe payment link for Pro (£59 founding, then £89)        |
+| `VITE_STRIPE_STARTER_LINK` | build var | client confirmation screen | Same £29 link, exposed to the front-end           |
+| `VITE_STRIPE_STANDARD_LINK` | build var | client confirmation screen | Same £49 link, exposed to the front-end           |
+| `VITE_STRIPE_PRO_LINK` | build var | client confirmation screen | Same Pro link, exposed to the front-end              |
 
 ### Resend setup
 
@@ -84,8 +112,8 @@ Set these in **Cloudflare Pages → Settings → Variables & Secrets**
 
 ### Stripe setup
 
-1. In Stripe → **Payment Links**, create one recurring £80/month link and one
-   recurring £120/month link.
+1. In Stripe → **Payment Links**, create recurring links for £29, £49 and
+   £59 (founding Pro; swap to £89 once the 5 places are gone).
 2. Paste their URLs into the `STRIPE_*` and `VITE_STRIPE_*` variables.
 
 ### Optional — KV backup of submissions
@@ -109,7 +137,10 @@ your real sole-trader details before going live.
 
 - Tailwind v4 via `@tailwindcss/vite` — theme tokens are defined in
   `src/index.css` under `@theme`.
-- All imagery is CSS gradients + inline SVG icons (`src/components/Icons.tsx`) —
-  no placeholder images.
-- Routing is client-side (React Router); `public/_redirects` provides the SPA
-  fallback while `/api/*` is served by the Pages Function.
+- Brand files: `public/brand/` (logo SVGs), `public/favicon.*`,
+  `public/og-image.png` (1200×630 share image). The logo component is
+  `src/components/Logo.tsx`.
+- Fonts (Inter, Bricolage Grotesque) are self-hosted via Fontsource.
+- Pages are pre-rendered, so there is no SPA fallback; unknown URLs get
+  `404.html`. `sitemap.xml` is generated at build; `robots.txt`, `llms.txt`
+  and `pricing.md` live in `public/`.

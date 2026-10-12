@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/ashford-logo-dark.png";
+import Logo from "./Logo";
+import { Arrow } from "./Icons";
 
-const links = [
-  { label: "Services", to: "/#services" },
-  { label: "Pricing", to: "/#pricing" },
-  { label: "Results", to: "/#proof" },
-  { label: "Terms", to: "/terms" },
+export const NAV_LINKS = [
+  { label: "Pricing", to: "/pricing" },
+  { label: "How it works", to: "/how-it-works" },
+  { label: "Examples", to: "/examples" },
+  { label: "FAQ", to: "/faq" },
+  { label: "About", to: "/about" },
 ];
 
 export default function Nav() {
@@ -22,86 +24,83 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => setOpen(false), [pathname]);
+
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]" : ""
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled || open ? "glass" : "border-b border-transparent"
       }`}
     >
-      <nav className="container-cs flex h-20 items-center justify-between">
-        <Link to="/" className="flex items-center" aria-label="Ashford Digital — home">
-          {/* White logo recoloured to black for the light nav (no grey box) */}
-          <img
-            src={logo}
-            alt="Ashford Digital"
-            className="w-auto"
-            style={{ height: 88, maxHeight: "none", filter: "brightness(0)" }}
-          />
+      <nav className="container-cs flex h-[4.5rem] items-center justify-between gap-6" aria-label="Main">
+        <Link to="/" className="flex items-center rounded-md" aria-label="Ashford Digital, home">
+          <Logo className="h-8 w-auto text-cloud sm:h-9" title="Ashford Digital" />
         </Link>
 
-        <div className="hidden items-center gap-7 md:flex">
-          {links.map((l) => (
-            <Link
+        <div className="hidden items-center gap-1 lg:flex">
+          {NAV_LINKS.map((l) => (
+            <NavLink
               key={l.to}
               to={l.to}
-              className="text-sm text-mist transition-colors hover:text-cloud"
+              className={({ isActive }) =>
+                `rounded-lg px-3 py-2 text-[0.95rem] transition-colors hover:text-cloud ${
+                  isActive ? "text-cloud" : "text-mist"
+                }`
+              }
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
-          <Link to="/onboarding" className="btn-primary !px-5 !py-2 text-sm">
-            Get started
-          </Link>
         </div>
 
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-line md:hidden"
-        >
-          <span
-            className={`h-0.5 w-5 bg-cloud transition-transform ${
-              open ? "translate-y-2 rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-5 bg-cloud transition-opacity ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-5 bg-cloud transition-transform ${
-              open ? "-translate-y-2 -rotate-45" : ""
-            }`}
-          />
-        </button>
+        <div className="flex items-center gap-2">
+          <Link to="/see-your-site-first" className="btn-primary hidden !min-h-11 !px-4 !py-2 text-sm sm:inline-flex">
+            See your site first <Arrow width={16} height={16} aria-hidden />
+          </Link>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-xl border border-line-2 lg:hidden"
+          >
+            <span className={`h-0.5 w-5 bg-cloud transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`h-0.5 w-5 bg-cloud transition-opacity ${open ? "opacity-0" : ""}`} />
+            <span className={`h-0.5 w-5 bg-cloud transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="glass overflow-hidden md:hidden"
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="overflow-hidden lg:hidden"
           >
-            <div className="container-cs flex flex-col gap-1 py-4">
-              {links.map((l) => (
+            <div className="container-cs flex flex-col gap-1 pb-6 pt-2">
+              {[...NAV_LINKS, { label: "Contact", to: "/contact" }].map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
-                  className="rounded-lg px-3 py-3 text-mist hover:bg-panel-2 hover:text-cloud"
+                  className="rounded-xl px-3 py-3.5 text-lg text-cloud hover:bg-panel"
                 >
                   {l.label}
                 </Link>
               ))}
-              <Link to="/onboarding" className="btn-primary mt-2">
-                Get started
+              <Link to="/see-your-site-first" className="btn-primary mt-3">
+                See your site first <Arrow width={18} height={18} aria-hidden />
               </Link>
             </div>
           </motion.div>

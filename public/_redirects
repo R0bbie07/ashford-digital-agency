@@ -1,4 +1,6 @@
-# SPA fallback for client-side routing (React Router).
-# Pages Functions under /api/* are matched before this rule, so the
-# onboarding endpoint keeps working.
-/*    /index.html   200
+# Pages are pre-built as HTML (see scripts/prerender.mjs), so no SPA
+# fallback is needed. Unknown URLs get 404.html. /api/* is served by
+# Pages Functions.
+
+# Short link for business cards and QR codes
+/demo  /see-your-site-first  301

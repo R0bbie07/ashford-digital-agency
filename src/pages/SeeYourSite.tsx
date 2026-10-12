@@ -182,8 +182,8 @@ export default function SeeYourSite() {
                   <input id="demo-link" className="field-input" value={form.link} onChange={set("link")} inputMode="url" placeholder="Paste a link if you have one" />
                 </Field>
                 {/* Honeypot for spam bots */}
-                <div className="absolute -left-[9999px]" aria-hidden>
-                  <label htmlFor="demo-website">Leave this empty</label>
+                <div hidden aria-hidden>
+                  <label htmlFor="demo-website">Spam check for bots only. Humans: leave blank.</label>
                   <input id="demo-website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} />
                 </div>
               </div>

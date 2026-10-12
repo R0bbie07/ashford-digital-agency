@@ -24,6 +24,7 @@ FROM_EMAIL = "Ashford Digital <onboarding@ashforddigital.co.uk>"
 # ---------------------------------------------------------------------------
 # Create one with:  wrangler kv namespace create ONBOARDING_KV
 # then paste the returned id below and uncomment.
-# [[kv_namespaces]]
-# binding = "ONBOARDING_KV"
-# id = "paste-the-namespace-id-here"
+# Stores demo requests (keys "demo:...") and onboarding backups ("lead:...").
+[[kv_namespaces]]
+binding = "ONBOARDING_KV"
+id = "d198c2ba699143f2a93f137eabfbd3f8"
